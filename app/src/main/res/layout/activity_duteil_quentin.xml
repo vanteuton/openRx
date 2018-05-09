@@ -42,4 +42,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stream_on" />
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Nom du compte github"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="348dp" />
+
 </android.support.constraint.ConstraintLayout>

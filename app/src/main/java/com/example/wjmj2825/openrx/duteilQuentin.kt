@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit
 
 class duteilQuentin : AppCompatActivity() {
 
+//    TODO("à faire -> Ajouter material design parce que c'est bien, permettre au joueur de choisir le pseudo du mec qu'il veut suivre et enregistrer ses anciens choix (room ?) pour les proposer en auto-complete")
+    
     private lateinit var disposable: Disposable
     private val user = "vanteuton"
 
