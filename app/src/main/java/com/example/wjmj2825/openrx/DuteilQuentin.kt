@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Scroller
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Observable
@@ -18,19 +19,32 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
+import android.text.method.LinkMovementMethod
+import android.R
+import android.widget.TextView
+import android.text.Spanned
+import android.text.TextPaint
+import android.content.Intent
+import android.graphics.Color
+import android.text.style.ClickableSpan
+import android.text.SpannableString
+import android.view.View
+import android.widget.Toast
 
 
-class duteilQuentin : AppCompatActivity() {
+class DuteilQuentin : AppCompatActivity() {
 
 //    TODO("à faire -> Ajouter material design parce que c'est bien, permettre au joueur de choisir le pseudo du mec qu'il veut suivre et enregistrer ses anciens choix (room ?) pour les proposer en auto-complete")
     
     private lateinit var disposable: Disposable
-    private val user = "vanteuton"
+    private var user = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_duteil_quentin)
+        display_text.setScroller(object : Scroller(this){})
         stream_on.setOnClickListener {
+            user = userNameEditText.text.toString()
             streamOn()
         }
         button2.setOnClickListener {
@@ -45,8 +59,8 @@ class duteilQuentin : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun updateUIWhenStartingHTTPRequest() {
-        test_text.text = "Downloading ..."
+    private fun updateUIWhenStartingHTTPRequest() {
+        display_text.text = "Downloading ..."
     }
 
     fun disposeWhenDestroy() {
@@ -89,11 +103,27 @@ class duteilQuentin : AppCompatActivity() {
     }
 
     fun updateUIWithListOfUsers(users: List<GithubUser>) {
-        val stringBuilder = StringBuilder()
-        for (user in users) {
-            stringBuilder.append("- ${user.login} \n")
+
+        val ss = SpannableString("Android is a Software stack")
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+                Toast.makeText(this@DuteilQuentin,"prout",Toast.LENGTH_LONG).show()
+            }
+
         }
-        updateUIWhenStopingHTTPRequests(stringBuilder.toString())
+        ss.setSpan(clickableSpan, 22, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        display_text.text = ss
+        display_text.movementMethod = LinkMovementMethod.getInstance()
+
+//        val stringBuilder = StringBuilder()
+//        if (users.isEmpty())stringBuilder.append("Ce ne sont pas ces droides que vous cherchez")
+//        else {
+//            for (user in users) {
+//                stringBuilder.append("- ${user.login} \n")
+//            }
+//        }
+//        updateUIWhenStopingHTTPRequests(stringBuilder.toString())
     }
 
     private fun updateUIWithUserInfo(userInfo: GithubUserInfo) {
@@ -101,7 +131,7 @@ class duteilQuentin : AppCompatActivity() {
     }
 
     fun updateUIWhenStopingHTTPRequests(response: String) {
-        test_text.text = response
+        display_text.text = response
     }
 
     override fun onDestroy() {
