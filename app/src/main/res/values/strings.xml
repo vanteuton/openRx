@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">ProjectAndroid   [Quentin DUTEIL]</string>
-    <string name="instructions">Bonjour. Bienvenu dans l\'application de suivit des comptes github. Pour commencer, veuillez entrer le nom d\'un utilisateur de Github (Si vous n'en connaissez pas, les comptes de certains élèves de la classe vous seront proposés).</string>
+    <string name="instructions">Bonjour. Bienvenu dans l\'application de suivit des comptes github. Pour commencer, veuillez entrer le nom d\'un utilisateur de Github (Si vous n\'en connaissez pas, les comptes de certains élèves de la classe vous seront proposés).</string>
 </resources>
