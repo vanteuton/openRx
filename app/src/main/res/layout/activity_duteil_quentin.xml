@@ -8,19 +8,24 @@
     android:layout_height="match_parent"
     tools:context=".DuteilQuentin">
 
-    <TextView
-        android:id="@+id/display_text"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:maxLines="@android:integer/config_shortAnimTime"
-        android:scrollbars="vertical"
-        android:text="@string/instructions"
-        android:textAlignment="center"
-        android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/display_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/instructions"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -39,29 +44,42 @@
             android:layout_marginStart="8dp">
 
             <EditText
-                android:id="@+id/userNameEditText"
+                android:id="@+id/user_name_edit_text"
                 android:layout_width="368dp"
                 android:layout_height="79dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:hint="Nom du compte github"
+                android:hint="@string/user_name_edit_text"
                 android:inputType="textPersonName" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/stream_on"
+            android:id="@+id/fetch_followers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Liste des followers"
+            android:text="@string/fetch_followers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout" />
+
+
+        <Button
+            android:id="@+id/fetch_single_infos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/fetch_user_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fetch_followers" />
     </LinearLayout>
 
 </LinearLayout>

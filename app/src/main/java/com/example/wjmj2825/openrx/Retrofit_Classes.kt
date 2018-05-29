@@ -12,7 +12,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
-
+/**
+ * L'interface GithubService permet à toute l'application de disposer d'un objet Retrofit capable d'executer des requêtes http
+ * et d'en retourner le résultat au travers des fonction getFloowing et getUserInfo.
+ */
 interface GithubService {
 
     @GET("users/{username}/following")
@@ -22,7 +25,6 @@ interface GithubService {
     fun getUserInfos(@Path("username") username: String): Observable<GithubUserInfo>
 
     companion object {
-
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -31,6 +33,10 @@ interface GithubService {
     }
 }
 
+/**
+ * L'objet GithubStreams contient les méthodes transformant les requêtes Retrofit(synchrones) en Observables(asynchrones)
+ * L'utilisation d'objets permet également de s'assurer que les appels réseaux ne seront gérés que par une entité, il n'y aura donc pas conflits de ressources.
+ */
 object GithubStreams {
 
     fun streamFetchUserInfos(username: String): Observable<GithubUserInfo> {
@@ -51,7 +57,10 @@ object GithubStreams {
 
 }
 
-
+/**
+ * Les classes suivantes sont les guides permettants à retrofit de
+ * créer des objets à partir des informations récupérées sur l'API de github
+ */
 class GithubUser {
 
     @SerializedName("login")
@@ -60,51 +69,9 @@ class GithubUser {
     @SerializedName("id")
     @Expose
     var id: Int? = null
-    @SerializedName("avatar_url")
-    @Expose
-    var avatarUrl: String? = null
-    @SerializedName("gravatar_id")
-    @Expose
-    var gravatarId: String? = null
-    @SerializedName("url")
-    @Expose
-    var url: String? = null
-    @SerializedName("html_url")
-    @Expose
-    var htmlUrl: String? = null
-    @SerializedName("followers_url")
-    @Expose
-    var followersUrl: String? = null
-    @SerializedName("following_url")
-    @Expose
-    var followingUrl: String? = null
-    @SerializedName("gists_url")
-    @Expose
-    var gistsUrl: String? = null
-    @SerializedName("starred_url")
-    @Expose
-    var starredUrl: String? = null
-    @SerializedName("subscriptions_url")
-    @Expose
-    var subscriptionsUrl: String? = null
-    @SerializedName("organizations_url")
-    @Expose
-    var organizationsUrl: String? = null
-    @SerializedName("repos_url")
-    @Expose
-    var reposUrl: String? = null
-    @SerializedName("events_url")
-    @Expose
-    var eventsUrl: String? = null
-    @SerializedName("received_events_url")
-    @Expose
-    var receivedEventsUrl: String? = null
     @SerializedName("type")
     @Expose
     var type: String? = null
-    @SerializedName("site_admin")
-    @Expose
-    var siteAdmin: Boolean? = null
 
 }
 
@@ -116,89 +83,29 @@ class GithubUserInfo {
     @SerializedName("id")
     @Expose
     var id: Int? = null
-    @SerializedName("avatar_url")
-    @Expose
-    var avatarUrl: String? = null
-    @SerializedName("gravatar_id")
-    @Expose
-    var gravatarId: String? = null
-    @SerializedName("url")
-    @Expose
-    var url: String? = null
-    @SerializedName("html_url")
-    @Expose
-    var htmlUrl: String? = null
-    @SerializedName("followers_url")
-    @Expose
-    var followersUrl: String? = null
-    @SerializedName("following_url")
-    @Expose
-    var followingUrl: String? = null
-    @SerializedName("gists_url")
-    @Expose
-    var gistsUrl: String? = null
-    @SerializedName("starred_url")
-    @Expose
-    var starredUrl: String? = null
-    @SerializedName("subscriptions_url")
-    @Expose
-    var subscriptionsUrl: String? = null
-    @SerializedName("organizations_url")
-    @Expose
-    var organizationsUrl: String? = null
-    @SerializedName("repos_url")
-    @Expose
-    var reposUrl: String? = null
-    @SerializedName("events_url")
-    @Expose
-    var eventsUrl: String? = null
-    @SerializedName("received_events_url")
-    @Expose
-    var receivedEventsUrl: String? = null
     @SerializedName("type")
     @Expose
     var type: String? = null
-    @SerializedName("site_admin")
-    @Expose
-    var siteAdmin: Boolean? = null
     @SerializedName("name")
     @Expose
     var name: String? = null
     @SerializedName("company")
     @Expose
     var company: String? = null
-    @SerializedName("blog")
-    @Expose
-    var blog: String? = null
-    @SerializedName("location")
-    @Expose
-    var location: String? = null
     @SerializedName("email")
     @Expose
     var email: String? = null
-    @SerializedName("hireable")
-    @Expose
-    var hireable: Boolean? = null
     @SerializedName("bio")
     @Expose
     var bio: String? = null
     @SerializedName("public_repos")
     @Expose
     var publicRepos: Int? = null
-    @SerializedName("public_gists")
-    @Expose
-    var publicGists: Int? = null
     @SerializedName("followers")
     @Expose
     var followers: Int? = null
     @SerializedName("following")
     @Expose
     var following: Int? = null
-    @SerializedName("created_at")
-    @Expose
-    var createdAt: String? = null
-    @SerializedName("updated_at")
-    @Expose
-    var updatedAt: String? = null
 
 }
