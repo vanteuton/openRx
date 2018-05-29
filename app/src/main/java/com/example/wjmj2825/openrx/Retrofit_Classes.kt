@@ -32,6 +32,7 @@ interface GithubService {
 }
 
 object GithubStreams {
+
     fun streamFetchUserInfos(username: String): Observable<GithubUserInfo> {
         val gitHubService = GithubService.retrofit.create(GithubService::class.java)
         return gitHubService.getUserInfos(username)
@@ -46,10 +47,6 @@ object GithubStreams {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS)
-    }
-
-    fun streamFetchUserFollowingAndFetchFirstUserInfos(username: String): Observable<GithubUserInfo> {
-        return streamFetchUserFollowing(username).map { users -> users[0] }.flatMap { user -> streamFetchUserInfos(user.login.toString()) }
     }
 
 }

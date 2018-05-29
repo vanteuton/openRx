@@ -34,7 +34,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp">
 
@@ -49,17 +49,7 @@
                 android:hint="Nom du compte github"
                 android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Informations sur le 1er follower"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stream_on" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/stream_on"
@@ -72,7 +62,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout" />
-        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
 </LinearLayout>
