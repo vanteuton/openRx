@@ -1,5 +1,7 @@
 package com.example.wjmj2825.openrx
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Observable
@@ -60,52 +62,31 @@ object GithubStreams {
 /**
  * Les classes suivantes sont les guides permettants à retrofit de
  * créer des objets à partir des informations récupérées sur l'API de github
+ * Les getters et setters ne sont pas à écrire en kotlin, ils sont automatiquement implémentés.
+ *
+ * Le @Entity présent au dessus de la classe définit celle ci comme étant une table pour le framework Room
  */
+@Entity
 class GithubUser {
 
-    @SerializedName("login")
-    @Expose
+    @PrimaryKey
+    var id: Int = 0
     var login: String? = null
-    @SerializedName("id")
-    @Expose
-    var id: Int? = null
-    @SerializedName("type")
-    @Expose
     var type: String? = null
 
 }
 
 class GithubUserInfo {
 
-    @SerializedName("login")
-    @Expose
     var login: String? = null
-    @SerializedName("id")
-    @Expose
     var id: Int? = null
-    @SerializedName("type")
-    @Expose
     var type: String? = null
-    @SerializedName("name")
-    @Expose
     var name: String? = null
-    @SerializedName("company")
-    @Expose
     var company: String? = null
-    @SerializedName("email")
-    @Expose
     var email: String? = null
-    @SerializedName("bio")
-    @Expose
     var bio: String? = null
-    @SerializedName("public_repos")
-    @Expose
     var publicRepos: Int? = null
-    @SerializedName("followers")
-    @Expose
     var followers: Int? = null
-    @SerializedName("following")
-    @Expose
     var following: Int? = null
 
 }

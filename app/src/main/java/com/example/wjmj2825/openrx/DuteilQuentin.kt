@@ -12,6 +12,9 @@ import android.widget.Scroller
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_duteil_quentin.*
+import android.arch.persistence.room.Room
+
+
 
 
 class DuteilQuentin : AppCompatActivity() {
@@ -36,6 +39,11 @@ class DuteilQuentin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_duteil_quentin)
         display_text.setScroller(object : Scroller(this){})
+
+        //ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM
+        val db = Room.databaseBuilder(applicationContext,AppDatabase::class.java, "database-name").build()
+        //ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM
+
 
         fetch_followers.setOnClickListener {
             /**
@@ -82,8 +90,7 @@ class DuteilQuentin : AppCompatActivity() {
     /**
      * getSubscribers retourne un observeur implémenté qui envoie les données du stream à la fonction updateUIWithListOfUsers
      */
-    fun getSubscribers(): DisposableObserver<List<GithubUser>> {
-        val ret = object : DisposableObserver<List<GithubUser>>() {
+    fun getSubscribers(): DisposableObserver<List<GithubUser>> = object : DisposableObserver<List<GithubUser>>() {
             override fun onComplete() {
                 Log.e("TAG", "On Complete !!")
             }
@@ -93,15 +100,12 @@ class DuteilQuentin : AppCompatActivity() {
             override fun onError(e: Throwable) {
                 Log.e("TAG", "On Error" + Log.getStackTraceString(e))
             }
-        }
-        return ret
     }
 
     /**
      * getSubscribers retourne un observeur implémenté qui envoie les données du stream à la fonction updateUIWithSingleUserInfo
      */
-    fun getInfos(): DisposableObserver<GithubUserInfo> {
-        val ret = object : DisposableObserver<GithubUserInfo>() {
+    fun getInfos(): DisposableObserver<GithubUserInfo> = object : DisposableObserver<GithubUserInfo>() {
             override fun onComplete() {
                 Log.e("TAG", "On Complete !!")
             }
@@ -111,8 +115,6 @@ class DuteilQuentin : AppCompatActivity() {
             override fun onError(e: Throwable) {
                 Log.e("TAG", "On Error" + Log.getStackTraceString(e))
             }
-        }
-        return ret
     }
 
 
