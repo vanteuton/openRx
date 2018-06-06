@@ -1,24 +1,18 @@
 package com.example.wjmj2825.openrx
 
 import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
-import android.view.FocusFinder
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Scroller
-import android.widget.Toast
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -29,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_duteil_quentin.*
 
 class DuteilQuentin : AppCompatActivity() {
 
-//    TODO("à faire -> enregistrer ses anciens choix (room ?) et mettre à jour l'adapteur qd ya un nouveau choix.")
 
     /**
      * Une variable lateinit est une variable non définie mais pour laquelle le programme reserve une place mémoire. Il faut que je la définisse avant sa première utilisation dans le code
@@ -72,7 +65,7 @@ class DuteilQuentin : AppCompatActivity() {
         //ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM
         db = Room.databaseBuilder(applicationContext, GithubDatabase::class.java, "GhitubUsersDatabase").build().githubUserDao()
 
-        Completable.fromAction { githubUsersToInsert.forEach { db.insert(it) }}.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
+        Completable.fromAction { githubUsersToInsert.forEach { db.insert(it) } }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
             Single.fromCallable { db.allNames() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { names ->
                 usersLogins = names
                 val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names)
@@ -127,14 +120,14 @@ class DuteilQuentin : AppCompatActivity() {
     /**
      * disposeWhenDestroy permet de vérifier que le stream suivi par l'application est bien libéré
      */
-    fun disposeWhenDestroy() {
+    private fun disposeWhenDestroy() {
         if (!this.disposable.isDisposed) this.disposable.dispose()
     }
 
     /**
      * getSubscribers retourne un observeur implémenté qui envoie les données du stream à la fonction updateUIWithListOfUsers
      */
-    fun getSubscribers(): DisposableObserver<List<GithubUser>> = object : DisposableObserver<List<GithubUser>>() {
+    private fun getSubscribers(): DisposableObserver<List<GithubUser>> = object : DisposableObserver<List<GithubUser>>() {
         override fun onComplete() {
             Log.e("TAG", "On Complete !!")
         }
@@ -152,7 +145,7 @@ class DuteilQuentin : AppCompatActivity() {
     /**
      * getSubscribers retourne un observeur implémenté qui envoie les données du stream à la fonction updateUIWithSingleUserInfo
      */
-    fun getInfos(): DisposableObserver<GithubUserInfo> = object : DisposableObserver<GithubUserInfo>() {
+    private fun getInfos(): DisposableObserver<GithubUserInfo> = object : DisposableObserver<GithubUserInfo>() {
         override fun onComplete() {
             Log.e("TAG", "On Complete !!")
         }
@@ -217,7 +210,7 @@ class DuteilQuentin : AppCompatActivity() {
 
         class DatabaseStoreClickableSpan(internal val user: String) : ClickableSpan() {
             override fun onClick(widget: View) {
-                if (!usersLogins.contains(user)){
+                if (!usersLogins.contains(user)) {
                     Completable.fromAction { db.insert(GithubUser(user)) }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
                         Snackbar.make(main_linear, "Utilisateur sauvegardé", Snackbar.LENGTH_INDEFINITE).show()
                         usersLogins += user
@@ -226,8 +219,7 @@ class DuteilQuentin : AppCompatActivity() {
                     }, {
                         Snackbar.make(main_linear, "Echec de la sauvegarde de l'utilisateur \n $it", Snackbar.LENGTH_INDEFINITE).show()
                     })
-                }
-                else{
+                } else {
                     Snackbar.make(main_linear, "Utilisateur déjà présent en mémoire", Snackbar.LENGTH_INDEFINITE).show()
                 }
 

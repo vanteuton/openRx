@@ -29,7 +29,7 @@ interface GithubService {
                 .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+                .build()!!
     }
 }
 
