@@ -59,9 +59,14 @@ class DuteilQuentin : AppCompatActivity() {
         setContentView(R.layout.activity_duteil_quentin)
         display_text.setScroller(object : Scroller(this) {})
 
+        githubUsersToInsert[0].id = 1
+        githubUsersToInsert[1].id = 2
+        githubUsersToInsert[2].id = 3
+        githubUsersToInsert[3].id = 4
+
 
         /**
-         * Cette partie du code instancie un helper de la base de donées (ligne 68)
+         * Cette partie du code instancie un helper de la base de donées
          * Ensuite, de manière asynchrone l'application insère quelques pseudo puis lis tous les pseudo présents en base pour les afficher sur l'UI
          */
         //ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM
