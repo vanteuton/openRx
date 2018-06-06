@@ -2,8 +2,6 @@ package com.example.wjmj2825.openrx
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -67,13 +65,13 @@ object GithubStreams {
  * Le @Entity présent au dessus de la classe définit celle ci comme étant une table pour le framework Room
  */
 @Entity
-class GithubUser {
-
-    @PrimaryKey
+class GithubUser (var login : String ?= ""
+    ){
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-    var login: String? = null
-    var type: String? = null
-
+    override fun toString(): String {
+        return "Github user login -> ${this.login}, id ${this.id}"
+    }
 }
 
 class GithubUserInfo {
