@@ -4,5 +4,6 @@
     <string name="fetch_followers">Liste des abonnés</string>
     <string name="user_name_edit_text">Nom du compte Github</string>
     <string name="fetch_user_info">Details de l\'utilisateur</string>
+    <string name="reset">Retour au départ</string>
     <string name="instructions">Bonjour. Bienvenus dans l\'application de suivi des comptes github. Pour commencer, veuillez entrer le nom d\'un utilisateur de Github (Si vous n\'en connaissez pas, les comptes de certains élèves de la classe vous seront proposés).</string>
 </resources>

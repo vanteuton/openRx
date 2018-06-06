@@ -60,22 +60,20 @@ class DuteilQuentin : AppCompatActivity() {
         display_text.setScroller(object : Scroller(this) {})
 
 
+        /**
+         * Cette partie du code instancie un helper de la base de donées (ligne 68)
+         * Ensuite, de manière asynchrone l'application insère quelques pseudo puis lis tous les pseudo présents en base pour les afficher sur l'UI
+         */
         //ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM ROOM
         db = Room.databaseBuilder(applicationContext, GithubDatabase::class.java, "GhitubUsersDatabase").build().githubUserDao()
 
-        Single.fromCallable { db.deleteAll() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { deleteNumber ->
-            Completable.fromAction {
-                githubUsersToInsert.forEach {
-                    db.insert(it)
-                }
-            }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
-                Single.fromCallable { db.allNames() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { names ->
-                    usersLogins = names
-                    val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names)
-                    user_name_edit_text.setAdapter(adapter)
-                    user_name_edit_text.isFocusableInTouchMode = true
-                    user_name_edit_text.isFocusable = true
-                }
+        Completable.fromAction { githubUsersToInsert.forEach { db.insert(it) }}.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            Single.fromCallable { db.allNames() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { names ->
+                usersLogins = names
+                val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names)
+                user_name_edit_text.setAdapter(adapter)
+                user_name_edit_text.isFocusableInTouchMode = true
+                user_name_edit_text.isFocusable = true
             }
         }
 
